@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Falks Fahrrad-Galerie</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/11.6.0/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/11.6.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/11.6.0/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/11.6.0/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/11.6.0/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/11.6.0/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/11.6.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/11.6.0/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/11.6.0/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/11.6.0/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  </head>
+  <body>
+    <h1>Falks Fahrradshop</h1>
+    <div id="gallery" class="gallery"></div>
+  
+    <script>
+      fetch('gallery.json')
+        .then(response => response.json())
+        .then(data => {
+          const gallery = document.getElementById('gallery');
+          data.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+              <img src="${item.image}" alt="${item.title}">
+              <h3>${item.title}</h3>
+            `;
+            gallery.appendChild(card);
+          });
+        });
+    </script>
+  </body>
+</html>
