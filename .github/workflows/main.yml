@@ -1,0 +1,39 @@
+# GitHub Actions workflow to deploy Firebase Hosting site
+
+name: Deploy Firebase Hosting on push
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Website/**'
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Authenticate with Firebase
+        run: firebase login:ci --token "$FIREBASE_SECRET"
+        env:
+          FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
+
+      - name: Deploy to Firebase Hosting
+        run: |
+          cd Website
+          firebase deploy --only hosting --token "$FIREBASE_SECRET"
+        env:
+          FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
