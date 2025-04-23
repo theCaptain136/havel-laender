@@ -5,7 +5,7 @@ name: Deploy Firebase Hosting on push
 on:
   push:
     branches:
-      - main
+      - Main
     paths:
       - 'Website/**'
 
