@@ -29,7 +29,7 @@ jobs:
       - name: Deploy to Firebase Hosting
         run: |
           cd Website
-          firebase deploy --token "$FIREBASE_TOKEN"
+          firebase deploy --token "$FIREBASE_SECRET"
           # firebase deploy --only hosting --token "$FIREBASE_SECRET"
         env:
           FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
